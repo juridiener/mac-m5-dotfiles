@@ -7,6 +7,7 @@ cwd=$(echo "$input" | jq -r '.workspace.current_dir // .cwd')
 dir=$(basename "$cwd")
 model=$(echo "$input" | jq -r '.model.display_name')
 remaining=$(echo "$input" | jq -r '.context_window.remaining_percentage // empty')
+daily=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
 
 # Get git branch (skip optional locks)
 branch=$(git -C "$cwd" --no-optional-locks symbolic-ref --short HEAD 2>/dev/null)
@@ -22,7 +23,11 @@ else
   git_part=""
 fi
 
-model_part="\033[0;35m[${model}]\033[0m"
+if [ -n "$daily" ]; then
+  model_part="\033[0;35m[${model} daily:$(printf '%.0f' "$daily")%%]\033[0m"
+else
+  model_part="\033[0;35m[${model}]\033[0m"
+fi
 
 if [ -n "$remaining" ]; then
   ctx_part=" \033[0;33mctx:$(printf '%.0f' "$remaining")%%\033[0m"

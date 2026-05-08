@@ -174,45 +174,52 @@ wezterm.on("update-status", function(window, pane)
 	}))
 end)
 
--- Custom tab title formatter: Preserve directory names even when apps like nvim are open
+-- Custom tab title formatter
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	-- Priority 1: If tab title is explicitly set (like "REACT", "API", "DOCKER"), use that
+	local bar_bg = "#1b1e28"
+	local active_bg = "#2a2d3e"
+	local active_fg = "#c4c7da"
+	local inactive_fg = hover and "#6b7194" or "#2e3250"
+
+	-- Resolve title: explicit name wins, else shortened cwd
+	local title = "~"
 	if tab.tab_title and #tab.tab_title > 0 then
+		title = tab.tab_title
+	else
+		local pane = tab.active_pane
+		local cwd_uri = pane and pane.current_working_dir
+		if cwd_uri then
+			local cwd_path
+			if type(cwd_uri) == "userdata" then
+				cwd_path = cwd_uri.file_path
+			elseif type(cwd_uri) == "string" then
+				cwd_path = cwd_uri:gsub("file://[^/]*", "")
+			end
+			if cwd_path and cwd_path ~= "" then
+				title = get_shortened_path(cwd_path, 3):upper()
+			end
+		end
+	end
+
+	if tab.is_active then
 		return {
-			{ Background = { Color = "#1b1e28" } },
-			{ Foreground = { Color = tab.is_active and "#a6accd" or "#767c9d" } },
-			{ Text = " " .. tab.tab_title .. " " },
+			{ Background = { Color = bar_bg } },
+			{ Foreground = { Color = active_bg } },
+			{ Text = wezterm.nerdfonts.pl_right_hard_divider },
+			{ Background = { Color = active_bg } },
+			{ Foreground = { Color = active_fg } },
+			{ Text = " " .. title .. " " },
+			{ Background = { Color = bar_bg } },
+			{ Foreground = { Color = active_bg } },
+			{ Text = wezterm.nerdfonts.pl_left_hard_divider },
+		}
+	else
+		return {
+			{ Background = { Color = bar_bg } },
+			{ Foreground = { Color = inactive_fg } },
+			{ Text = "  " .. title .. "  " },
 		}
 	end
-
-	-- Priority 2: Get current working directory (ignores what nvim/other apps say)
-	local title = "~"
-	local pane = tab.active_pane
-	local cwd_uri = pane and pane.current_working_dir
-
-	if cwd_uri then
-		local cwd_path = nil
-
-		-- Handle both URL object (newer versions) and string format (older versions)
-		if type(cwd_uri) == "userdata" then
-			-- Newer wezterm: URL object with file_path property
-			cwd_path = cwd_uri.file_path
-		elseif type(cwd_uri) == "string" then
-			-- Older wezterm: string like "file:///path/to/dir"
-			cwd_path = cwd_uri:gsub("file://[^/]*", "")
-		end
-
-		if cwd_path and cwd_path ~= "" then
-			title = get_shortened_path(cwd_path, 3):upper()
-		end
-	end
-
-	-- Return formatted title with your color scheme
-	return {
-		{ Background = { Color = "#1b1e28" } },
-		{ Foreground = { Color = tab.is_active and "#a6accd" or "#767c9d" } },
-		{ Text = " " .. title .. " " },
-	}
 end)
 
 -- Main config
@@ -222,6 +229,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.use_fancy_tab_bar = false
 config.audible_bell = "Disabled"
 -- config.debug_key_events = true
 config.send_composed_key_when_left_alt_is_pressed = true
@@ -244,14 +252,19 @@ config.color_scheme = "Rosé Pine (base16)"
 -- config.color_scheme = "lume"
 config.max_fps = 120
 
+config.window_frame = {
+	font = wezterm.font("JetBrainsMono Nerd Font"),
+	font_size = 16.0,
+}
+
 config.colors = {
 	tab_bar = {
 		background = "#1b1e28",
-		active_tab = { bg_color = "#1b1e28", fg_color = "#a6accd" },
-		inactive_tab = { bg_color = "#1b1e28", fg_color = "#767c9d" },
-		inactive_tab_hover = { bg_color = "#1b1e28", fg_color = "#a6accd" },
-		new_tab = { bg_color = "#1b1e28", fg_color = "#767c9d" },
-		new_tab_hover = { bg_color = "#1b1e28", fg_color = "#a6accd", italic = true },
+		active_tab = { bg_color = "#2a2d3e", fg_color = "#c4c7da" },
+		inactive_tab = { bg_color = "#1b1e28", fg_color = "#2e3250" },
+		inactive_tab_hover = { bg_color = "#1b1e28", fg_color = "#6b7194" },
+		new_tab = { bg_color = "#1b1e28", fg_color = "#6b7194" },
+		new_tab_hover = { bg_color = "#1b1e28", fg_color = "#a6accd" },
 	},
 }
 
