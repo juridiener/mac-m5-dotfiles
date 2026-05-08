@@ -1,4 +1,30 @@
 {
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/juri.diener/.claude/hooks/caveman-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/juri.diener/.claude/hooks/caveman-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      }
+    ]
+  },
   "env": {
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPOTING": "1",
@@ -144,7 +170,8 @@
     "figma@claude-plugins-official": true,
     "firecrawl@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
-    "context-mode@context-mode": true
+    "context-mode@context-mode": true,
+    "caveman@caveman": true
   },
   "statusLine": {
     "type": "command",
@@ -161,6 +188,12 @@
       "source": {
         "source": "github",
         "repo": "mksglu/context-mode"
+      }
+    },
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
       }
     }
   }

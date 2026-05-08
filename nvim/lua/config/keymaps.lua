@@ -12,6 +12,9 @@ keymap("i", "jk", "<ESC>", opts)
 -- Folds
 keymap("n", "zz", "za", opts)
 
+-- Show errors
+keymap("n", "M", vim.diagnostic.open_float)
+
 local typescript = require("functions.typescript_typecheck")
 vim.keymap.set(
   "n",

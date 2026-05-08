@@ -10,7 +10,8 @@ PROMPT='%F{cyan}%1d%f${vcs_info_msg_0_} %F{white}❯%f '
 
 # ── PATH ─────────────────────────────────────────────────────────────────────
 export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"   # neovim via bob
-export PATH="/usr/local/opt/ruby/bin:$PATH"            # ruby
+export PATH="$HOME/.rbenv/bin:$PATH"                   # rbenv
+eval "$(rbenv init -)"
 
 # ── Env vars ─────────────────────────────────────────────────────────────────
 export LANG=en_US.UTF-8
