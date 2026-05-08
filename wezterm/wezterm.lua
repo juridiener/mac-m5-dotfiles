@@ -104,9 +104,12 @@ wezterm.on("gui-startup", function()
 	mux.set_active_workspace("MONOREPO")
 end)
 
--- Status bar: Show zoom indicator
+-- Status bar: zoom indicator (left) + CPU / RAM / clock (right)
+local last_stats_time = 0
+local cached_stats = "CPU:-- RAM:--"
+
 wezterm.on("update-status", function(window, pane)
-	-- Check if the active pane is zoomed
+	-- Left: zoom indicator
 	local zoom_status = ""
 	local tab = pane:tab()
 	if tab then
@@ -124,6 +127,50 @@ wezterm.on("update-status", function(window, pane)
 		{ Foreground = { Color = "#eb6f92" } },
 		{ Attribute = { Intensity = "Normal" } },
 		{ Text = zoom_status },
+	}))
+
+	-- Right: CPU + RAM (refreshed every 5 s) + clock
+	local now = os.time()
+	if now - last_stats_time >= 5 then
+		last_stats_time = now
+
+		-- CPU: parse idle% from top and invert (rolling average, instant first sample)
+		local cpu_str = "CPU:??"
+		local cpu_ok, cpu_out = wezterm.run_child_process({
+			"/bin/sh",
+			"-c",
+			"top -l 1 -n 0 | grep 'CPU usage'",
+		})
+		if cpu_ok then
+			local idle = tonumber(cpu_out:match("(%d+%.%d+)%% idle"))
+			if idle then
+				cpu_str = string.format("CPU:%d%%", math.floor(100 - idle))
+			end
+		end
+
+		-- RAM: vm_stat pages × 4 KiB, total from sysctl
+		local mem_str = "RAM:??"
+		local mem_ok, mem_out = wezterm.run_child_process({ "vm_stat" })
+		local tot_ok, tot_out = wezterm.run_child_process({ "sysctl", "-n", "hw.memsize" })
+		if mem_ok and tot_ok then
+			local active = tonumber(mem_out:match("Pages active:%s+(%d+)%.?"))
+			local wired = tonumber(mem_out:match("Pages wired down:%s+(%d+)%.?"))
+			local compressed = tonumber(mem_out:match("Pages occupied by compressor:%s+(%d+)%.?")) or 0
+			local total_bytes = tonumber(tot_out:match("%d+"))
+			if active and wired and total_bytes then
+				local used_gb = (active + wired + compressed) * 4096 / 1073741824
+				local total_gb = total_bytes / 1073741824
+				mem_str = string.format("RAM:%.1f/%.0fG", used_gb, total_gb)
+			end
+		end
+
+		cached_stats = cpu_str .. "  " .. mem_str
+	end
+
+	window:set_right_status(wezterm.format({
+		{ Background = { Color = "#1b1e28" } },
+		{ Foreground = { Color = "#a6accd" } },
+		{ Text = "  " .. cached_stats .. "  " .. wezterm.strftime("%H:%M") .. "  " },
 	}))
 end)
 
