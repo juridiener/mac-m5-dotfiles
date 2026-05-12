@@ -15,4 +15,5 @@ claude/backups/
 claude/cache/
 claude/file-history/
 claude/paste-cache/
+zed/prompts/
 claude/plugins/plugins/install-counts-cache.json
