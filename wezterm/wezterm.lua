@@ -134,31 +134,31 @@ wezterm.on("update-status", function(window, pane)
 	if now - last_stats_time >= 5 then
 		last_stats_time = now
 
-		-- CPU: parse idle% from top and invert (rolling average, instant first sample)
+		-- CPU: two samples, use second (first is since-boot average; also avoids sh/grep overhead)
 		local cpu_str = "CPU:??"
-		local cpu_ok, cpu_out = wezterm.run_child_process({
-			"/bin/sh",
-			"-c",
-			"top -l 1 -n 0 | grep 'CPU usage'",
-		})
+		local cpu_ok, cpu_out = wezterm.run_child_process({ "top", "-l", "2", "-n", "0" })
 		if cpu_ok then
-			local idle = tonumber(cpu_out:match("(%d+%.%d+)%% idle"))
-			if idle then
-				cpu_str = string.format("CPU:%d%%", math.floor(100 - idle))
+			local last_idle
+			for v in cpu_out:gmatch("(%d+%.%d+)%% idle") do
+				last_idle = tonumber(v)
+			end
+			if last_idle then
+				cpu_str = string.format("CPU:%d%%", math.floor(100 - last_idle))
 			end
 		end
 
-		-- RAM: vm_stat pages × 4 KiB, total from sysctl
+		-- RAM: matches Activity Monitor "Memory Used" = anonymous + wired + compressed
 		local mem_str = "RAM:??"
 		local mem_ok, mem_out = wezterm.run_child_process({ "vm_stat" })
 		local tot_ok, tot_out = wezterm.run_child_process({ "sysctl", "-n", "hw.memsize" })
 		if mem_ok and tot_ok then
-			local active = tonumber(mem_out:match("Pages active:%s+(%d+)%.?"))
+			local page_size = tonumber(mem_out:match("page size of (%d+) bytes")) or 16384
+			local anonymous = tonumber(mem_out:match("Anonymous pages:%s+(%d+)%.?")) or 0
 			local wired = tonumber(mem_out:match("Pages wired down:%s+(%d+)%.?"))
 			local compressed = tonumber(mem_out:match("Pages occupied by compressor:%s+(%d+)%.?")) or 0
 			local total_bytes = tonumber(tot_out:match("%d+"))
-			if active and wired and total_bytes then
-				local used_gb = (active + wired + compressed) * 4096 / 1073741824
+			if anonymous and wired and total_bytes then
+				local used_gb = (anonymous + wired + compressed) * page_size / 1073741824
 				local total_gb = total_bytes / 1073741824
 				mem_str = string.format("RAM:%.1f/%.0fG", used_gb, total_gb)
 			end
