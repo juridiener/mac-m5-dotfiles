@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/juri.diener/.claude/hooks/caveman-activate.js\"",
+            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-activate.js\"",
             "timeout": 5,
             "statusMessage": "Loading caveman mode..."
           }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/juri.diener/.claude/hooks/caveman-mode-tracker.js\"",
+            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-mode-tracker.js\"",
             "timeout": 5,
             "statusMessage": "Tracking caveman mode..."
           }
@@ -109,7 +109,7 @@
       "WebFetch",
       "Read(/tmp/**)",
       "Read(//private/tmp/**)",
-      "Read(//Users/juri.diener/.config/**)",
+      "Read(//Users/DienerJuri/.config/**)",
       "mcp__plugin_figma_figma__whoami",
       "mcp__plugin_figma_figma__get_metadata",
       "mcp__plugin_figma_figma__get_screenshot",
@@ -175,7 +175,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash /Users/juri.diener/.config/claude/statusline-command.sh"
+    "command": "bash /Users/DienerJuri/.config/claude/statusline-command.sh"
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {

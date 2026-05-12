@@ -4,6 +4,8 @@
 
 vim.g.maplocalleader = ","
 
+vim.env.RBENV_VERSION = "3.3.11"
+
 -- UNDO TREE
 vim.opt.swapfile = false -- creates a swapfile
 vim.opt.backup = false -- creates a backup file

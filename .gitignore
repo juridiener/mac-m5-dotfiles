@@ -1,0 +1,18 @@
+# Claude Code plugin caches (cloned repos, not owned)
+claude/plugins/marketplaces/
+claude/plugins/plugins/marketplaces/
+claude/plugins/plugins/cache/
+claude/plugins/cache/
+
+# Claude Code runtime state
+claude/sessions/
+claude/shell-snapshots/
+claude/projects/
+claude/history.jsonl
+claude/mcp-needs-auth-cache.json
+claude/.caveman-active
+claude/backups/
+claude/cache/
+claude/file-history/
+claude/paste-cache/
+claude/plugins/plugins/install-counts-cache.json

@@ -5,7 +5,7 @@
       "repo": "anthropics/claude-plugins-official"
     },
     "installLocation": "/Users/juri.diener/.claude/plugins/marketplaces/claude-plugins-official",
-    "lastUpdated": "2026-05-12T22:00:50.520Z"
+    "lastUpdated": "2026-03-25T08:50:30.638Z"
   },
   "claude-code-plugins": {
     "source": {
@@ -13,7 +13,7 @@
       "repo": "anthropics/claude-code"
     },
     "installLocation": "/Users/juri.diener/.claude/plugins/marketplaces/claude-code-plugins",
-    "lastUpdated": "2026-05-12T22:00:18.169Z"
+    "lastUpdated": "2026-05-12T08:01:57.197Z"
   },
   "context-mode": {
     "source": {
@@ -21,6 +21,22 @@
       "repo": "mksglu/context-mode"
     },
     "installLocation": "/Users/juri.diener/.claude/plugins/marketplaces/context-mode",
-    "lastUpdated": "2026-05-12T22:00:22.415Z"
+    "lastUpdated": "2026-03-23T09:10:16.201Z"
+  },
+  "karpathy-skills": {
+    "source": {
+      "source": "github",
+      "repo": "forrestchang/andrej-karpathy-skills"
+    },
+    "installLocation": "/Users/juri.diener/.claude/plugins/marketplaces/karpathy-skills",
+    "lastUpdated": "2026-04-16T06:48:27.512Z"
+  },
+  "caveman": {
+    "source": {
+      "source": "github",
+      "repo": "JuliusBrussee/caveman"
+    },
+    "installLocation": "/Users/juri.diener/.claude/plugins/marketplaces/caveman",
+    "lastUpdated": "2026-05-05T12:04:51.095Z"
   }
 }

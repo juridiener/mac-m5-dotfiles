@@ -10,6 +10,11 @@
   // ============================================================
   // VIM MODE
   // ============================================================
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    }
+  },
   "vim_mode": true,
   "vim": {
     "use_system_clipboard": "always",
@@ -23,7 +28,7 @@
   // ============================================================
   "theme": {
     "mode": "dark",
-    "dark": "Rosé Pine",
+    "dark": "One Dark",
     "light": "Rosé Pine Dawn"
   },
 
