@@ -1,30 +1,4 @@
 {
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-activate.js\"",
-            "timeout": 5,
-            "statusMessage": "Loading caveman mode..."
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-mode-tracker.js\"",
-            "timeout": 5,
-            "statusMessage": "Tracking caveman mode..."
-          }
-        ]
-      }
-    ]
-  },
   "env": {
     "DISABLE_TELEMETRY": "1",
     "DISABLE_ERROR_REPOTING": "1",
@@ -155,7 +129,48 @@
       "Bash(git clean*)",
       "Bash(git stash*)"
     ],
-    "ask": ["Bash(rm*)", "Bash(rmdir*)"]
+    "ask": [
+      "Bash(rm*)",
+      "Bash(rmdir*)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-activate.js\"",
+            "timeout": 5,
+            "statusMessage": "Loading caveman mode..."
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"/Users/DienerJuri/.claude/hooks/context-mode-cache-heal.mjs\""
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-mode-tracker.js\"",
+            "timeout": 5,
+            "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      }
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash /Users/DienerJuri/.config/claude/statusline-command.sh"
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
@@ -172,10 +187,6 @@
     "skill-creator@claude-plugins-official": true,
     "context-mode@context-mode": true,
     "caveman@caveman": true
-  },
-  "statusLine": {
-    "type": "command",
-    "command": "bash /Users/DienerJuri/.config/claude/statusline-command.sh"
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {

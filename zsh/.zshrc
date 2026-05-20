@@ -29,3 +29,5 @@ autoload -Uz compinit && compinit
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 alias gst='git status'
+# open all files in neovim that are not staged and modified
+alias nvim-gitmod='nvim $(git diff --name-only)'
