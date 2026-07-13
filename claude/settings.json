@@ -75,6 +75,7 @@
       "Bash(ipconfig*)",
       "Bash(sysctl*)",
       "Bash(mkdir*)",
+      "Bash(touch *)",
       "Bash(kill*)",
       "Bash(npm run*)",
       "Bash(npx*)",
@@ -134,6 +135,7 @@
       "Bash(rmdir*)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "SessionStart": [
       {

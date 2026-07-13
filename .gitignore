@@ -19,7 +19,15 @@ claude/file-history/
 claude/paste-cache/
 claude/image-cache/
 claude/context-mode/
+claude/security/
+claude/security_warnings_state_*.json
+claude/tasks/*/
+claude/plugins/.last_inuse_sweep
+claude/.last-cleanup
 zed/prompts/
+
+# OpenCode runtime state
+opencode/context-mode/
 
 # Karabiner auto-backups
 karabiner/automatic_backups/
