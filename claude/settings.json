@@ -135,7 +135,6 @@
       "Bash(rmdir*)"
     ]
   },
-  "model": "opus",
   "hooks": {
     "SessionStart": [
       {
@@ -188,7 +187,9 @@
     "firecrawl@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "context-mode@context-mode": true,
-    "caveman@caveman": true
+    "caveman@caveman": true,
+    "mattpocock-skills@mattpocock": true,
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
@@ -207,6 +208,18 @@
       "source": {
         "source": "github",
         "repo": "JuliusBrussee/caveman"
+      }
+    },
+    "mattpocock": {
+      "source": {
+        "source": "github",
+        "repo": "mattpocock/skills"
+      }
+    },
+    "ui-ux-pro-max-skill": {
+      "source": {
+        "source": "github",
+        "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
       }
     }
   }
