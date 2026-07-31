@@ -10,8 +10,11 @@
       "*rmdir*": "deny",
       "*del*": "deny",
       "*build*": "ask",
-      "*nx*": "deny",
+      "nx": "deny",
+      "nx *": "deny",
+      "npx nx*": "deny",
       "docker exec*": "ask",
+      "npx *": "ask",
       "npx nx test*": "allow",
       "npx eslint*": "allow",
       "npx tsc*": "allow",
@@ -78,6 +81,11 @@
     "context-mode": {
       "type": "local",
       "command": ["context-mode"]
+    },
+    "mobile-mcp": {
+      "type": "local",
+      "command": ["npx", "@mobilenext/mobile-mcp@latest"],
+      "enabled": true
     }
   },
   "plugin": ["context-mode"]

@@ -189,7 +189,8 @@
     "context-mode@context-mode": true,
     "caveman@caveman": true,
     "mattpocock-skills@mattpocock": true,
-    "ui-ux-pro-max@ui-ux-pro-max-skill": true
+    "ui-ux-pro-max@ui-ux-pro-max-skill": true,
+    "expo@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {

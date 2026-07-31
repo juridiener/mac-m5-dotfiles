@@ -24,6 +24,9 @@ claude/security_warnings_state_*.json
 claude/tasks/*/
 claude/plugins/.last_inuse_sweep
 claude/.last-cleanup
+claude/daemon/
+claude/daemon.log
+claude/jobs/
 zed/prompts/
 
 # OpenCode runtime state
