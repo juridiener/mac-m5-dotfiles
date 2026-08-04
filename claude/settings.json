@@ -192,6 +192,9 @@
     "ui-ux-pro-max@ui-ux-pro-max-skill": true,
     "expo@claude-plugins-official": true
   },
+  "worktree": {
+    "baseRef": "head"
+  },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
       "source": {
