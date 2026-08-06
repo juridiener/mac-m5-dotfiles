@@ -245,7 +245,8 @@ config.window_padding = {
 config.enable_scroll_bar = true
 config.scrollback_lines = 70000
 
-config.font = wezterm.font("JetBrainsMono Nerd Font", { italic = true })
+-- config.font = wezterm.font("JetBrainsMono Nerd Font", { italic = true })
+config.font = wezterm.font("Maple Mono NF", { italic = true })
 config.font_size = 17.0
 config.adjust_window_size_when_changing_font_size = false
 config.color_scheme = "Rosé Pine (base16)"
@@ -253,7 +254,8 @@ config.color_scheme = "Rosé Pine (base16)"
 config.max_fps = 120
 
 config.window_frame = {
-	font = wezterm.font("JetBrainsMono Nerd Font"),
+	-- font = wezterm.font("JetBrainsMono Nerd Font"),
+	font = wezterm.font("Maple Mono NF"),
 	font_size = 16.0,
 }
 

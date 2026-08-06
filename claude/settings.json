@@ -6,7 +6,7 @@
   },
   "permissions": {
     "allow": [
-      "READ(*)",
+      "Read(*)",
       "Glob(*)",
       "Grep(*)",
       "Find(*)",
@@ -169,6 +169,9 @@
       }
     ]
   },
+  "worktree": {
+    "baseRef": "head"
+  },
   "statusLine": {
     "type": "command",
     "command": "bash /Users/DienerJuri/.config/claude/statusline-command.sh"
@@ -191,9 +194,6 @@
     "mattpocock-skills@mattpocock": true,
     "ui-ux-pro-max@ui-ux-pro-max-skill": true,
     "expo@claude-plugins-official": true
-  },
-  "worktree": {
-    "baseRef": "head"
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
@@ -226,5 +226,6 @@
         "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
       }
     }
-  }
+  },
+  "model": "sonnet"
 }
