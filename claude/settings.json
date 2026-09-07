@@ -116,8 +116,6 @@
       "Bash(yarn remove*)",
       "Bash(pnpm add*)",
       "Bash(pnpm remove*)",
-      "Bash(git add*)",
-      "Bash(git commit*)",
       "Bash(git push*)",
       "Bash(git pull*)",
       "Bash(git merge*)",
@@ -132,7 +130,9 @@
     ],
     "ask": [
       "Bash(rm*)",
-      "Bash(rmdir*)"
+      "Bash(rmdir*)",
+      "Bash(git add*)",
+      "Bash(git commit*)"
     ]
   },
   "hooks": {
@@ -193,7 +193,8 @@
     "caveman@caveman": true,
     "mattpocock-skills@mattpocock": true,
     "ui-ux-pro-max@ui-ux-pro-max-skill": true,
-    "expo@claude-plugins-official": true
+    "expo@claude-plugins-official": true,
+    "ruby-lsp@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "claude-code-plugins": {
@@ -226,6 +227,5 @@
         "repo": "nextlevelbuilder/ui-ux-pro-max-skill"
       }
     }
-  },
-  "model": "sonnet"
+  }
 }

@@ -27,6 +27,7 @@ claude/.last-cleanup
 claude/daemon/
 claude/daemon.log
 claude/jobs/
+claude/plans/
 zed/prompts/
 
 # OpenCode runtime state

@@ -1,5 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "instructions": ["~/.config/system-prompt-for-agents.md"],
   "autoupdate": true,
   "permission": {
     "bash": {
