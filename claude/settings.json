@@ -141,7 +141,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-activate.js\"",
+            "command": "node \"$HOME/.claude/hooks/hooks/caveman-activate.js\"",
             "timeout": 5,
             "statusMessage": "Loading caveman mode..."
           }
@@ -151,7 +151,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"/Users/DienerJuri/.claude/hooks/context-mode-cache-heal.mjs\""
+            "command": "\"$HOME/.claude/hooks/context-mode-cache-heal.mjs\""
           }
         ]
       }
@@ -161,9 +161,20 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"/Users/DienerJuri/.claude/hooks/hooks/caveman-mode-tracker.js\"",
+            "command": "node \"$HOME/.claude/hooks/hooks/caveman-mode-tracker.js\"",
             "timeout": 5,
             "statusMessage": "Tracking caveman mode..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$HOME/.config/claude/hooks/feature-docs-gate.cjs\"",
+            "timeout": 8
           }
         ]
       }
@@ -174,7 +185,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash /Users/DienerJuri/.config/claude/statusline-command.sh"
+    "command": "bash \"$HOME/.config/claude/statusline-command.sh\""
   },
   "enabledPlugins": {
     "typescript-lsp@claude-plugins-official": true,
