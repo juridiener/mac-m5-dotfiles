@@ -34,14 +34,21 @@ if (!featuresDir) process.exit(0);
 
 let status;
 try {
-  status = execFileSync('git', ['status', '--porcelain'], { cwd: projectDir, encoding: 'utf8' });
+  status = execFileSync('git', ['status', '--porcelain', '--untracked-files=all'], {
+    cwd: projectDir,
+    encoding: 'utf8',
+  });
 } catch {
   process.exit(0);
 }
 
 const featuresRel = path.relative(projectDir, featuresDir).split(path.sep).join('/');
 const lines = status.split('\n').filter(Boolean);
-const filePath = (line) => line.slice(3).trim().replace(/^"|"$/g, '');
+const filePath = (line) => {
+  const p = line.slice(3).trim().replace(/^"|"$/g, '');
+  const renameSplit = p.indexOf(' -> ');
+  return renameSplit === -1 ? p : p.slice(renameSplit + 4); // rename: use the new path
+};
 const ignoreDirs = ['node_modules/', 'dist/', 'build/', '.next/', '.nx/'];
 
 const codeChanged = lines.some((l) => {
