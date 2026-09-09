@@ -35,6 +35,15 @@ try {
       const command = input && input.tool_input && input.tool_input.command;
       if (typeof command !== 'string') return allow();
 
+      // Remote/nested-shell dispatch: `grep` inside a docker exec / docker compose
+      // exec / ssh -c string runs in a DIFFERENT environment (a container, a remote
+      // host) that this hook has no visibility into and rg may not even be
+      // installed there. The host's own `which rg` check below cannot speak for
+      // that environment, so bail out unconditionally rather than guess.
+      if (/\b(docker\s+(compose\s+)?exec|docker-compose\s+exec|ssh)\b/.test(command)) {
+        return allow();
+      }
+
       // grep as the first token, or right after a shell operator (;, &&, ||, |, ().
       // Deliberately narrow: won't catch `xargs grep` / `find -exec grep`, and
       // won't false-positive on prose like `echo "use grep for X"`.
