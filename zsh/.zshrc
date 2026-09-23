@@ -21,6 +21,8 @@ export NX_DAEMON=false
 # ── Aliases ───────────────────────────────────────────────────────────────────
 source ~/aliases.sh
 
+# alias claude='claude --append-system-prompt-file ~/.config/system-prompt-for-agents.md'
+
 # ── Completions ───────────────────────────────────────────────────────────────
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 autoload -Uz compinit && compinit
