@@ -104,11 +104,25 @@ wezterm.on("gui-startup", function()
 	mux.set_active_workspace("MONOREPO")
 end)
 
+wezterm.on("toggle-last-workspace", function(window, pane)
+	local prev = wezterm.GLOBAL.prev_ws
+	if prev and prev ~= window:active_workspace() then
+		window:perform_action(act.SwitchToWorkspace({ name = prev }), pane)
+	end
+end)
+
 -- Status bar: zoom indicator (left) + CPU / RAM / clock (right)
 local last_stats_time = 0
 local cached_stats = "CPU:-- RAM:--"
 
 wezterm.on("update-status", function(window, pane)
+	-- Track previous workspace for Leader+a toggle (GLOBAL survives config reloads)
+	local ws = window:active_workspace()
+	if wezterm.GLOBAL.current_ws ~= ws then
+		wezterm.GLOBAL.prev_ws = wezterm.GLOBAL.current_ws
+		wezterm.GLOBAL.current_ws = ws
+	end
+
 	-- Left: zoom indicator
 	local zoom_status = ""
 	local tab = pane:tab()
@@ -296,6 +310,9 @@ config.keys = {
 	{ key = "x", mods = "LEADER", action = wezterm.action.CloseCurrentPane({ confirm = true }) },
 	{ key = "f", mods = "LEADER", action = wezterm.action.ToggleFullScreen },
 	{ key = "=", mods = "LEADER", action = wezterm.action.TogglePaneZoomState },
+	-- Toggle between last two workspaces: Leader+a (also with Ctrl held)
+	{ key = "a", mods = "LEADER", action = act.EmitEvent("toggle-last-workspace") },
+	{ key = "a", mods = "LEADER|CTRL", action = act.EmitEvent("toggle-last-workspace") },
 	{
 		key = "s",
 		mods = "LEADER",
